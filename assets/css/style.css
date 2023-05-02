@@ -1,0 +1,211 @@
+/* reset  */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: rgb(234, 234, 237);
+}
+/* main section of app  */
+#app {
+	font-family: 'Indie Flower', cursive;
+	background-color: rgb(11, 20, 78);
+	max-width: 803px;
+	margin-top: 5em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 2rem;
+	padding: 20px;
+	border-radius: 22px;
+}
+#mainTitle {
+	text-align: center;
+	font-size: 4rem;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	padding: 1rem;
+}
+
+#nutri{
+	color: rgb(21, 221, 145);
+}
+#time {
+	color: white;
+	font-size: 3rem;
+}
+#imageGallery {
+	margin-bottom: 1em;
+}
+.dateContainer {
+	/* border: 3px dashed rgb(162, 143, 73); */
+	height: 100px;
+	margin-bottom: .5rem;
+	border-top-right-radius: 12px;
+	border-top-left-radius: 12px;
+}
+/* top food image banner */
+#banner {
+	display: inline-block;
+	gap: 0.3em;
+}
+#imageBanner {
+	position: relative;
+}
+article,
+image {
+	cursor: pointer;
+}
+.imageTitle {
+	position: absolute;
+	bottom: 20px;
+	left: 2.3%;
+	padding: 0 0.5rem;
+	color: rgb(250, 246, 246);
+	background-color: rgba(207, 135, 59, 0.74);
+	border-radius: 3px;
+}
+
+#demoImg {
+	margin: 10px 80px 0 0;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.vue-file-agent {
+	width: 190px;
+}
+
+#app > h1:first-of-type {
+	margin-top: 0;
+}
+
+h1 {
+	color: rgb(162, 143, 73);
+	text-align: center;
+	font-size: 4rem;
+}
+h2 {
+	color: white;
+}
+
+h1#hungry {
+	color: rgb(23, 203, 13);
+
+	font-size: 62px;
+}
+
+#imageChooser {
+	margin-right: 20px;
+	float: left;
+}
+/* recipe page */
+.recipe {
+	display: inline-block;
+	max-width: 240px;
+	width: 50px;
+	opacity: 0;
+	margin-right: 12px;
+	margin-bottom: 12px;
+	color: white;
+}
+
+.recipe h4 {
+	margin: 5px 0 5px 0;
+	max-height: 50px;
+	overflow: hidden;
+}
+
+.recipe img {
+	max-width: 100%;
+}
+/* nutrients progress bars */
+.nutritionBar {
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.nutritionBar div {
+	height: 100%;
+	width: 0;
+	float: left;
+	margin-right: 20px;
+}
+
+.nutritionBar span {
+	font-weight: bold;
+	font-size: 20px;
+	color: white;
+}
+
+p {
+	font-size: 22px;
+	display: inline;
+	color: white;
+}
+a {
+	color: rgb(75, 213, 29);
+}
+/* nutrients info  */
+span.category {
+	background-color: #29ad43;
+	color: white;
+	padding: 0 10px;
+	border-radius: 10px;
+}
+
+.nutri {
+	color: rgb(23, 203, 13);
+	font-size: 50px;
+}
+
+#calories div {
+	background-color: #ff5c5c;
+}
+
+#fat div {
+	background-color: #3fcc3f;
+}
+
+#protein div {
+	background-color: #7077ff;
+}
+
+#carbs div {
+	background-color: #ff9400;
+}
+
+#spoonacular {
+	margin-top: 50px;
+	opacity: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	text-align: center;
+}
+
+/* !==============================end of food app================================== */
+#gifApp {
+	/* margin-left: 1%; */
+	position: relative;
+	text-align: center;
+	padding: .7rem;
+}
+#gif {
+	background-color:  rgb(208, 186, 107);
+	color: white;
+	padding: 15px 20px;
+	font-size: 1.4rem;
+	border-radius: 0.5em;
+	cursor: pointer;
+	position: relative;
+	
+}
+#gif:hover {
+	background-color: #a2c2f9;
+	transition: 1s;
+}
+#images {
+	padding: 0;
+}
+

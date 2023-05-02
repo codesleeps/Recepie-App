@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Food Image Analyzer</title>
+		<meta name="author" content="David Urbansky" />
+		<meta name="description" content="A spoonacular sample app." />
+		<meta name="keywords" content="spoonacular, sample, app" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.1.0/anime.min.js"></script>
+		<!-- vue.js  -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<!-- google fonts  -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+			rel="stylesheet" />
+		<!-- vue.js  -->
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/vue-file-agent@latest/dist/vue-file-agent.css" />
+		<!-- vue filer agent  -->
+		<script src="https://unpkg.com/vue-file-agent@latest/dist/vue-file-agent.umd.js"></script>
+		<!-- favicon  -->
+		<link
+			rel="shortcut icon"
+			href="https://spoonacular.com/favicon.ico"
+			type="image/x-icon" />
+		<link
+			rel="icon"
+			href="https://spoonacular.com/favicon.ico"
+			type="image/x-icon" />
+		<!-- css  -->
+		<link rel="stylesheet" href="assets/css/style.css" />
+		<title>Food Image Analyzer</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<h1 id="mainTitle">Food Analyzer</h1>
+			<!-- display time & date  -->
+			<div class="dateContainer">
+				<h1>🗓️ <span id="time"></span></h1>
+			</div>
+			<section id="gifApp">
+				<div id="images"></div>
+		    <button id="gif" class="button" type="button">GIFS4FUN</button>
+			</section>
+
+			<header id="imageGallery">
+				<section id="banner" class="container">
+					<article id="imageBanner" class="col-sm-6 col-md-4">
+						<h3 class="imageTitle">Baked Salmon</h3>
+						<img src="./assets/images/bakedSalmon.png" alt="baked salmon" class="img-fluid" />
+					</article>
+				</section>
+				<section id="banner" class="container">
+					<article id="imageBanner" class="col-sm-6 col-md-4">
+						<h3 class="imageTitle">Beef Brisket</h3>
+						<img src="./assets/images/beefBrisket.png" alt="beef brisket" class="img-fluid" />
+					</article>
+				</section>
+				<section id="banner">
+					<article id="imageBanner">
+						<h3 class="imageTitle">Burger</h3>
+						<img src="./assets/images/burger.png" alt="burger" />
+					</article>
+				</section>
+				<section id="banner" class="container">
+					<article id="imageBanner" class="col-sm-6 col-md-4">
+						<h3 class="imageTitle">Chicken Wings</h3>
+						<img src="./assets/images/chickenWings.png" alt="chicken wings" class="img-fluid" />
+					</article>
+				</section>
+				<section id="banner" class="container">
+					<article id="imageBanner" class="col-sm-6 col-md-4">
+						<h3 class="imageTitle">Chilli</h3>
+						<img src="./assets/images/chilli.png" alt="chilli" class="img-fluid" />
+					</article>
+				</section>
+				<section id="banner" class="container">
+					<article id="imageBanner" class="col-sm-6 col-md-4">
+						<h3 class="imageTitle">Chow Mein</h3>
+						<img src="./assets/images/chowMein.png" alt="Chow Mein" class="img-fluid" />
+					</article>
+				</section>
+				<section id="banner" class="container">
+					<article id="imageBanner" class="col-sm-6 col-md-4">
+						<h3 class="imageTitle">Falafel</h3>
+						<img src="./assets/images/falafel.png" alt="Falafel" class="img-fluid" />
+					</article>
+				</section>
+				<section id="banner" class="container">
+					<article id="imageBanner" class="col-sm-6 col-md-4">
+						<h3 class="imageTitle">Kebab</h3>
+						<img src="./assets/images/kebab.png" alt="Kebab" class="img-fluid" />
+					</article>
+				</section>
+				<section id="banner" class="container">
+					<article id="imageBanner" class="col-sm-6 col-md-4">
+						<h3 class="imageTitle">Sushi</h3>
+						<img src="./assets/images/sushi.png" alt="sushi" class="img-fluid" />
+					</article>
+				</section>
+			</header>
+
+			<div id="imageChooser" class="container">
+				<div class="row">
+					<div class="col-md-6 offset-md-3">
+						<VueFileAgent
+							ref="vueFileAgent"
+							:multiple="false"
+							:deletable="true"
+							:uploadUrl="uploadUrl"
+							meta="false"
+							:accept="'image/*'"
+							:maxSize="'10MB'"
+							:maxFiles="1"
+							@upload="onUpload($event)"
+							compact="true"
+							@select="onSelect"
+							:helpText="'Choose images or zip files'"
+							:errorText="{
+							  type: 'Invalid file type. Only images allowed',
+							  size: 'Files should not exceed 10MB in size',
+							}"
+							v-model="foodImages"
+						></VueFileAgent>
+					</div>
+				</div>
+			</div>			
+			<template v-if="analyzed">
+				<div class="row">
+				  <div class="col-md-12">
+					<p class="text-center">
+					  I think this is
+					  <span class="category">{{ analyzedImage.category.name.replace('_', ' ') }}</span>
+					  - {{ probabilityText }} I only know 50 different dishes right now, here's the
+					  <a href="https://spoonacular.com/food-api/docs#Image-Classification-Categories">full list</a>.
+					</p>
+				  </div>
+				</div>
+			  </template>			  
+			<template v-else>
+				<p>
+					&lt;- drop an image here, or see it with a
+					<a href="#" @click="analyzeWithDemo">demo picture</a
+					><span style="position: relative; top: 16px; left: 5px; color: white"
+						>⤦</span
+					>
+					<img
+						align="right"
+						:src="demoImageUrl"
+						id="demoImg"
+						@click="analyzeWithDemo" />
+				</p>
+			</template>
+			<div style="clear: both"></div>
+
+			<template v-if="analyzed">
+				<h1 class="nutri">
+					Nutrition profile of the average
+					<span>{{ analyzedImage.category.name.replace('_', ' ') }}</span>
+				</h1>
+
+				<div id="calories" class="nutritionBar">
+					<div></div>
+					<span>{{ nutrition.calories }} calories</span>
+				</div>
+				<div id="fat" class="nutritionBar">
+					<div></div>
+					<span
+						>{{ nutrition.fat }}{{ analyzedImage.nutrition.fat.unit }} fat</span
+					>
+				</div>
+				<div id="protein" class="nutritionBar">
+					<div></div>
+					<span
+						>{{ nutrition.protein }}{{ analyzedImage.nutrition.protein.unit }}
+						protein</span
+					>
+				</div>
+				<div id="carbs" class="nutritionBar">
+					<div></div>
+					<span
+						>{{ nutrition.carbs }}{{ analyzedImage.nutrition.carbs.unit }}
+						carbs</span
+					>
+				</div>
+
+				<h1 id="hungry">Hungry now? Try one of these</h1>
+				<div
+					v-for="(r, i) in analyzedImage.recipes"
+					:key="'recipe-' + i"
+					class="recipe">
+					<h4>{{ r.title }}</h4>
+					<a :href="r.url"
+						><img
+							:src="'https://spoonacular.com/recipeImages/' + r.id + '-240x150.' + r.imageType"
+					/></a>
+				</div>
+			</template>
+		</div>
+
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="assets/js/script.js"></script>
+	</body>
+</html>
